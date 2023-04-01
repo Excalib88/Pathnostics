@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pathnostics.Web.Data;
+using Pathnostics.Web.Data.Entities;
 using Pathnostics.Web.Services.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,10 +44,10 @@ builder.Services.AddAuthorization(options => options.DefaultPolicy =
             (JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
         .Build());
-builder.Services.AddIdentity<IdentityUser<long>, IdentityRole<long>>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<long>>()
     .AddEntityFrameworkStores<DataContext>()
-    .AddUserManager<UserManager<IdentityUser<long>>>()
-    .AddSignInManager<SignInManager<IdentityUser<long>>>();
+    .AddUserManager<UserManager<ApplicationUser>>()
+    .AddSignInManager<SignInManager<ApplicationUser>>();
 
 builder.Services.AddSwaggerGen(option =>
 {

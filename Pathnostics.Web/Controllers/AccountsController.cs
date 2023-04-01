@@ -60,7 +60,7 @@ public class AccountsController : ControllerBase
         
         var accessToken = _tokenService.CreateToken(user, roles);
         user.RefreshToken = _configuration.GenerateRefreshToken();
-        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
 
         await _context.SaveChangesAsync();
         
@@ -129,7 +129,7 @@ public class AccountsController : ControllerBase
         var username = principal.Identity!.Name;
         var user = await _userManager.FindByNameAsync(username!);
 
-        if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+        if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
         {
             return BadRequest("Invalid access token or refresh token");
         }

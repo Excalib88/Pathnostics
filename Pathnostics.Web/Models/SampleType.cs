@@ -86,17 +86,5 @@ public enum SampleType
     /// Блоки
     /// </summary>
     [Display(Name = "Блоки")]
-    Blocks,
-    
-    /// <summary>
-    /// фиксированный (10% формалин)
-    /// </summary>
-    [Display(Name = "Фиксированный (10% формалин)")]
-    Fixed10PercentFormalin,
-    
-    /// <summary>
-    /// Свежий
-    /// </summary>
-    [Display(Name = "Свежий")]
-    Fresh
+    Blocks
 }
